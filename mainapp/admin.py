@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from mainapp.models import Products, Catigories, Image
+from mainapp.models import Products, Categories, Image
 
 
 class CatAdmin(admin.ModelAdmin):
@@ -8,18 +8,18 @@ class CatAdmin(admin.ModelAdmin):
     prepopulated_fields = {"url": ("name",)}
 
     class Meta:
-        model = Catigories
+        model = Categories
 
 
 class ProductsAdmin(admin.ModelAdmin):
-    fields = ('name', 'price', 'available', 'url', 'category', 'main_image')
-    list_display = ('category', 'name', 'price', 'available')
-    prepopulated_fields = {'url': ('name',)}
+    fields = ('name_model', 'price', 'available', 'url', 'brand', 'category', 'main_image')
+    list_display = ('category', 'name_model', 'price', 'available')
+    prepopulated_fields = {'url': ('name_model',)}
     ordering = ('category',)
     class Meta:
         model = Products
 
 
 admin.site.register(Products, ProductsAdmin)
-admin.site.register(Catigories, CatAdmin)
+admin.site.register(Categories, CatAdmin)
 admin.site.register(Image)
