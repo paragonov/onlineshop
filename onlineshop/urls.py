@@ -19,6 +19,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('mainapp.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  path('admin/', admin.site.urls),
+                  path('', include('mainapp.urls')),
+                  path('', include('reviewsapp.urls')),
+                  path('cart/', include('cartapp.urls', namespace='cart')),
+                  path('orders/', include('ordersapp.urls', namespace='orders')),
+
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
