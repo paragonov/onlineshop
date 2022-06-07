@@ -1,0 +1,83 @@
+{% load mathfilters %}
+{% load my_filters %}
+<div id="tab3" class="tab-pane fade in">
+
+    <div class="row">
+        {% if ar2 %}
+            <!-- Rating -->
+            <div class="col-md-3">
+                <div id="rating">
+                    <div class="rating-avg">
+                        <span>{{ ar }}</span>
+                        <div class="rating-stars">
+                            {% if ar2 %}
+                                {% for s in ar2|range %}
+                                    <i class="fa fa-star"></i>
+                                {% endfor %}
+                                {% for s in 5|sub:ar2|range %}
+                                    <i class="fa fa-star-o"></i>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <ul class="rating">
+                        {% for s,c in countrev.items %}
+                            <li>
+                                <div class="rating-stars">
+                                    {% for _ in s|range %}
+                                        <i class="fa fa-star"></i>
+                                    {% endfor %}
+                                    {% for _ in 5|sub:s|range %}
+                                        <i class="fa fa-star-o"></i>
+                                    {% endfor %}
+                                </div>
+                                <div class="rating-progress">
+                                    <div style="width: {{ 100|mul:c|intdiv:crp }}%;"></div>
+                                </div>
+                                <span class="sum">{{ c }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <!-- /Rating -->
+
+            <!-- Reviews -->
+            <div class="col-md-9">
+                <div id="reviews">
+                    <ul class="reviews">
+                        {% for r in rp %}
+                            <li>
+                                <div class="review-heading">
+                                    <h5 class="name">{{ r.name }}</h5>
+                                    <p class="date">{{ r.date }}</p>
+                                    <div class="review-rating">
+                                        {% for s in r.rating|range %}
+                                            <i class="fa fa-star"></i>
+                                        {% endfor %}
+                                        {% for s in 5|sub:r.rating|range %}
+                                            <i class="fa fa-star-o"></i>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="review-body">
+                                    <p>{{ r.comment }}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'review' prod.url %}" class="primary-btn cta-btn">Оставить отзыв</a>
+                </div>
+            </div>
+            <!-- /Reviews -->
+
+        {% else %}
+            <div style="text-align: center">
+                <h1>Здесь ещё нет отзывов.</h1>
+                <h1>Будьте первыми!</h1>
+                <a href="{% url 'review' prod.url %}" class="primary-btn cta-btn">Оставить отзыв</a>
+            </div>
+        {% endif %}
+    </div>
+
+</div>

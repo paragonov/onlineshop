@@ -1,0 +1,221 @@
+{% extends 'mainapp/base.html' %}
+{% load spurl %}
+{% load static %}
+{% load mathfilters %}
+{% load my_filters %}
+
+
+{% block content %}
+    <div id="breadcrumb" class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="breadcrumb-tree">
+                        <li><a href="{% url 'main' %}">Главная</a></li>
+                        <li><a href="{% url 'filter_prod' %}">Товары</a></li>
+                        <li class="active">{{ prod.brand }} {{ prod.name_model }}</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- SECTION -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <!-- Product main img -->
+                <div class="col-md-5 col-md-push-2">
+                    <div id="product-main-img">
+                        {% for i in prod.image_set.all %}
+                            <div class="product-preview">
+                                <img src="/media/{{ i.image }}" alt="">
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- /Product main img -->
+
+                <!-- Product thumb imgs -->
+                <div class="col-md-2  col-md-pull-5">
+                    <div id="product-imgs">
+                        {% for i in prod.image_set.all %}
+                            <div class="product-preview">
+                                <img src="/media/{{ i.image }}" alt="">
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- /Product thumb imgs -->
+
+                <!-- Product details -->
+                <div class="col-md-5">
+                    <div class="product-details">
+                        <h2 class="product-name">{{ prod.brand }} {{ prod.name_model }}</h2>
+                        <div>
+                            <div class="product-rating">
+                                {% if ar2 %}
+                                    {% for s in ar2|range %}
+                                        <i class="fa fa-star"></i>
+                                    {% endfor %}
+                                    {% for s in 5|sub:ar2|range %}
+                                        <i class="fa fa-star-o"></i>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <a class="review-link" href="">{{ rp|length }} отзывов</a>
+                        </div>
+                        <div>
+                            {% if prod.discount == True %}
+                                <h3 class="product-price">{{ prod.price_with_disk }}₽
+                                    <del class="product-old-price">{{ prod.price }}₽</del>
+                                </h3>
+                            {% else %}
+                                <h3 class="product-price">{{ prod.price }}₽</h3>
+                            {% endif %}
+                            <span class="product-available">
+                                {% if prod.available == True %}
+                                    В наличии
+                                {% else %}
+                                    Нет в наличии
+                                {% endif %}
+                            </span>
+                        </div>
+                        <p>{{ prod.discription|truncatechars:10 }}</p>
+                        <div class="product-options">
+                            <label>
+                                Память
+                                <select class="input-select">
+                                    <option value="64">64</option>
+                                    <option value="128">128</option>
+                                    <option value="256">256</option>
+                                </select>
+                            </label>
+                            <label>
+                                Цвет
+                                <select class="input-select">
+                                    <option value="red">Красный</option>
+                                    <option value="black">Черный</option>
+                                    <option value="white">Белый</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <div class="add-to-cart">
+                            <div class="qty-label">
+                                Кол-во
+                                <div class="input-number">
+                                    <input type="number">
+                                    <span class="qty-up">+</span>
+                                    <span class="qty-down">-</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <ul class="product-btns">
+                            <li><a href="#"><i class="fa fa-heart-o"></i> Добавить в избранное</a></li>
+                        </ul>
+
+                        <ul class="product-links">
+                            <li>Категория:</li>
+                            <li><a href="#">{{ prod.category.name }}</a></li>
+                        </ul>
+
+                        <ul class="product-links">
+                            <li>Поделиться:</li>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-envelope"></i></a></li>
+                        </ul>
+
+                    </div>
+                </div>
+                <!-- /Product details -->
+                <form action="{% url "cart:cart_add" prod.url %}" method="post">
+                    {{ cart_product_form }}
+                    {% csrf_token %}
+                    <button type="submit" value="Add to cart"> jepa</button>
+                </form>
+                <!-- Product tab -->
+                <div class="col-md-12">
+                    <div id="product-tab">
+                        <!-- product tab nav -->
+                        <ul class="tab-nav">
+                            <li class="active"><a data-toggle="tab" href="#tab1">Описание</a></li>
+                            <li><a data-toggle="tab" href="#tab2">Детали</a></li>
+                            <li><a data-toggle="tab" href="#tab3">Отзывы ({{ rp|length }})</a></li>
+                        </ul>
+                        <!-- /product tab nav -->
+
+                        <!-- product tab content -->
+                        <div class="tab-content">
+                            <!-- tab1  -->
+                            <div id="tab1" class="tab-pane fade in active">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p>{{ prod.discription }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /tab1  -->
+
+                            <!-- tab2  -->
+                            <div id="tab2" class="tab-pane fade in">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /tab2  -->
+
+                            <!-- tab3  -->
+                            {% block reviews %}
+                                {% include '/home/vladimir/Djangoproject/onlineshop/onlineshop/reviewsapp/templates/reviewsapp/show_reviews.html' %}
+                            {% endblock %}
+                            <!-- /tab3  -->
+                        </div>
+                        <!-- /product tab content  -->
+                    </div>
+                </div>
+                <!-- /product tab -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+
+    <!-- Section -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="section-title text-center">
+                        <h3 class="title">Рекомендуемые товары</h3>
+                    </div>
+                </div>
+
+                <!-- product -->
+
+                {% include 'mainapp/blocks/random_prod.html' %}
+
+
+                <!-- /product -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /Section -->
+{% endblock %}

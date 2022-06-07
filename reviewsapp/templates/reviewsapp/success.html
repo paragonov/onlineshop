@@ -1,0 +1,15 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="successh2">
+                <h2>Успешно!</h2>
+                <h2>Ваш отзыв опубликован.</h2>
+            </div>
+            <a href="{% url 'detail_prod' prod.url%}" class="primary-btn cta-btn">Вернуться к товару</a>
+        </div>
+    </div>
+
+{% endblock %}
