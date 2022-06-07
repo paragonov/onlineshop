@@ -150,19 +150,31 @@
 	var priceSlider = document.getElementById('price-slider');
 	if (priceSlider) {
 		noUiSlider.create(priceSlider, {
-			start: [1, 999],
+			start: [1, 999999],
 			connect: true,
 			step: 1,
 			range: {
 				'min': 1,
-				'max': 999
+				'max': 999999
 			}
 		});
 
 		priceSlider.noUiSlider.on('update', function( values, handle ) {
-			var value = values[handle];
-			handle ? priceInputMax.value = value : priceInputMin.value = value
+			var value = Number(values[handle]);
+			handle ? priceInputMax.value = Number(value) : priceInputMin.value = Number(value)
 		});
 	}
 
 })(jQuery);
+
+document.getElementById('btn-filter').addEventListener('click', function() {
+  var data = [];
+  data.push(document.getElementById('price-min').value);
+  data.push(document.getElementById('price-max').value);
+  localStorage.setItem('k', JSON.stringify(data));
+});
+window.addEventListener('load', function() {
+  var data = JSON.parse(localStorage.getItem('k'));
+  document.getElementById('price-min').value = data[0];
+  document.getElementById('price-max').value = data[1];
+});

@@ -352,7 +352,25 @@ textarea.input {
   top: 0px;
   right: 0px;
 }
-
+.btn-form-filter{
+    position: relative;
+    border: 2px solid transparent;
+    height: 40px;
+    padding: 0 30px;
+    background-color: #ef233c;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 40px;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+    margin-top: 20px;
+}
+.btn-form-filter:hover{
+    background-color: #FFF;
+    color: #D10024;
+    border-color: #D10024;
+}
 /*----------------------------*\
 	Breadcrumb
 \*----------------------------*/
@@ -2056,7 +2074,13 @@ textarea.input {
   font-size: 36px;
   display: block;
 }
-
+.successh2{
+  margin-top: 30px;
+}
+.add-opinion__title{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 /*=========================================================
 	12 -> SLICK STYLE
 ===========================================================*/
@@ -2130,6 +2154,8 @@ textarea.input {
   position: static;
   margin: 15px 0px;
 }
+
+
 
 /*=========================================================
 	13 -> RESPONSIVE

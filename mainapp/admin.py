@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from mainapp.models import Products, Categories, Image
+from mainapp.models import Products, Categories, Image, Brands
 
 
 class CatAdmin(admin.ModelAdmin):
@@ -12,10 +12,11 @@ class CatAdmin(admin.ModelAdmin):
 
 
 class ProductsAdmin(admin.ModelAdmin):
-    fields = ('name_model', 'price', 'available', 'url', 'brand', 'category', 'main_image')
-    list_display = ('category', 'name_model', 'price', 'available')
+    fields = ('category','brand', 'name_model', 'main_image', 'available', 'discount', 'size_discount', 'url', 'price',)
+    list_display = ('category','brand', 'name_model', 'price', 'available')
     prepopulated_fields = {'url': ('name_model',)}
     ordering = ('category',)
+
     class Meta:
         model = Products
 
@@ -23,3 +24,4 @@ class ProductsAdmin(admin.ModelAdmin):
 admin.site.register(Products, ProductsAdmin)
 admin.site.register(Categories, CatAdmin)
 admin.site.register(Image)
+admin.site.register(Brands)
