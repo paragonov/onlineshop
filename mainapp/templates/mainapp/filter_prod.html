@@ -1,0 +1,115 @@
+{% extends 'mainapp/base.html' %}
+{% load spurl %}
+{% load static %}
+
+{% block content %}
+    <!-- breadcrumb -->
+    <div id="breadcrumb" class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="breadcrumb-tree">
+                        <li><a href="{%url 'main'%}">Главная</a></li>
+                        <li class="active">Товары</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- breadcrumb -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                {% block filter_aside  %}
+                    {% include './blocks/aside_filter_search_form.html' %}
+                {% endblock %}
+                    <!-- /store top filter -->
+
+                    <!-- store products -->
+                    <div class="row">
+                        <!-- product -->
+                        {% for p in results %}
+                            <div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="/media/{{ p.main_image }}" alt="">
+                                        {% if p.discount == True %}
+                                        <div class="product-label">
+                                            <span class="sale">{{ p.size_discount }}%</span>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category">{{ p.category }}</p>
+                                        <h3 class="product-name"><a href="/products/{{ p.url }}">{{ p.brand }} {{ p.name_model }}</a></h3>
+                                        <h4 class="product-price">{{ p.price }}Р.
+                                            <del class="product-old-price">0</del>
+                                        </h4>
+                                        <div class="product-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Добавить в
+                                            корзину
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /product -->
+                        {% endfor %}
+                        <div class="clearfix visible-sm visible-xs"></div>
+
+                    </div>
+                    <!-- /store products -->
+
+                    <!-- pagination -->
+                    <div class="store-filter clearfix">
+                        <span class="store-qty">Showing {{ results|length }} products</span>
+
+                        <nav aria-label="Paginate me">
+                            <ul class="store-pagination">
+                                {% if page_obj.has_previous %}
+                                    <li>
+                                        <a href="{% spurl path=request.get_full_path query=request.GET set_query="page={{ page_obj.previous_page_number }}" %}"><i
+                                                class="fa fa-angle-left"></i></a>
+                                    </li>
+                                {% endif %}
+                                {% for i in page_obj.paginator.page_range %}
+                                    {% if i == page_obj.number %}
+                                        <li class="active">
+                                            <a href="?page={{ i }}">{{ i }}</a>
+                                        </li>
+                                    {% elif i >= page_obj.number|add:-2 and i <= page_obj.number|add:2 %}
+                                        <li>
+                                            <a href="{% spurl path=request.get_full_path query=request.GET set_query="page={{ i }}" %}">{{ i }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li>
+                                        <a href="{% spurl path=request.get_full_path query=request.GET set_query="page={{ page_obj.next_page_number }}" %}"><i
+                                                class="fa fa-angle-right"></i></a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- /pagination -->
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+{% endblock %}
