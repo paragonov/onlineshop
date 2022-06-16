@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mainapp',
     'userapp',
-    'reviewsapp',
+    'detailsapp',
     'cartapp',
     'ordersapp',
+    'sendemail',
+    'filterprodapp',
     'spurl',
     'mathfilters',
 ]
@@ -130,6 +132,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#email
+RECIPIENTS_EMAIL = ['vladimirhoris@gmail.com']
+DEFAULT_FROM_EMAIL = 'vladimirhoris@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Cart
 CART_SESSION_ID = 'cart'

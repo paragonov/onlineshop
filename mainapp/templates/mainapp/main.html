@@ -7,6 +7,11 @@
         <div class="container">
             <!-- row -->
             <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title">
+                        <h3 class="title">Категории</h3>
+                    </div>
+                </div>
                 <!-- shop -->
                 {% for c in cat %}
                     <div class="col-md-4 col-xs-6">
@@ -16,7 +21,8 @@
                             </div>
                             <div class="shop-body">
                                 <h3>{{ c.name }}</h3>
-                                <a href="#" class="cta-btn">Купить сейчас <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="/products/?cat={{ c.name }}&price-min=1&price-max=999999&show=12"
+                                   class="cta-btn">Купить сейчас <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -38,7 +44,6 @@
                 <div class="col-md-12">
                     <div class="section-title">
                         <h3 class="title">Новое поступление</h3>
-
                     </div>
                 </div>
                 <!-- /section title -->
@@ -87,7 +92,8 @@
                         </ul>
                         <h2 class="text-uppercase">Лучшее предложение недели</h2>
                         <p>Новое поступление до 50% скидка</p>
-                        <a class="primary-btn cta-btn" href="#">Купить сейчас</a>
+                        <a class="primary-btn cta-btn" href="/products/?disc=1&price-min=1&price-max=999999&show=12">Купить
+                            сейчас</a>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,28 @@
+{% extends 'mainapp/base.html' %}
+{% block content %}
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="newsletter">
+                        <p>Подпишитесь на <strong>НОВЫЕ ПРЕДЛОЖЕНИЯ</strong></p>
+                        <form method="post">
+                            {% csrf_token %}
+                            {% for f in form %}
+                                <div class="form-group">
+                                    {{ f }}
+                                </div>
+                            {% endfor %}
+                            <button type="submit" class="primary-btn"><i class="fa fa-envelope"></i> Подписаться
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+{% endblock %}

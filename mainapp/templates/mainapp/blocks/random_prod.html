@@ -1,45 +1,38 @@
 <div class="col-md-12">
-                    <div class="row">
-                        <div class="products-tabs">
-                            <!-- tab -->
-                            <div id="tab2" class="tab-pane fade in active">
-                                <div class="products-slick" data-nav="#slick-nav-2">
-                                    {% for p in prods %}
-                                        <div class="product">
-                                            <div class="product-img">
-                                                <img src="/media/{{ p.main_image }}" alt="">
-                                                <div class="product-label">
-                                                    <span class="sale">-30%</span>
-                                                    <span class="new">NEW</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-body">
-                                                <p class="product-category">{{ p.category }}</p>
-                                                <h3 class="product-name"><a href="#">{{ p.name_model }}</a></h3>
-                                                <h4 class="product-price">{{ p.price }}Р
-                                                    <del class="product-old-price">0</del>
-                                                </h4>
-                                                <div class="product-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-
-                                            </div>
-                                            <div class="add-to-cart">
-                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>
-                                                    Добавить
-                                                    в корзину
-                                                </button>
-                                            </div>
+    <div class="row">
+        <div class="products-tabs">
+            <!-- tab -->
+            <div id="tab2" class="tab-pane fade in active">
+                <div class="products-slick" data-nav="#slick-nav-2">
+                    {% for p in prods %}
+                        <div class="product">
+                            <div class="product-img">
+                                <img src="/media/{{ p.main_image }}" alt="">
+                                <div class="product-label">
+                                    {% if p.discount == True %}
+                                        <div class="product-label">
+                                            <span class="sale">-{{ p.size_discount }}%</span>
                                         </div>
-                                    {% endfor %}
+                                    {% endif %}
                                 </div>
-                                <div id="slick-nav-2" class="products-slick-nav"></div>
                             </div>
-                            <!-- /tab -->
+                            <div class="product-body">
+                                <p class="product-category">{{ p.category }}</p>
+                                <h3 class="product-name"><a href="#">{{ p.name_model }}</a></h3>
+                                <h4 class="product-price">{{ p.price }}Р
+                                    <del class="product-old-price">0</del>
+                                </h4>
+                            </div>
+                            <div class="add-to-cart">
+                                <a href="{% url 'detail_prod' p.url%}" class="primary-btn">
+                                    Перейти к деталям
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
+            </div>
+            <!-- /tab -->
+        </div>
+    </div>
+</div>

@@ -15,6 +15,7 @@
                     <ul class="breadcrumb-tree">
                         <li><a href="{% url 'main' %}">Главная</a></li>
                         <li><a href="{% url 'filter_prod' %}">Товары</a></li>
+                        <li><a href="/products/?cat={{ prod.category }}&price-min=1&price-max=999999&show=12">{{ prod.category }}</a></li>
                         <li class="active">{{ prod.brand }} {{ prod.name_model }}</li>
                     </ul>
                 </div>
@@ -64,6 +65,10 @@
                                         <i class="fa fa-star"></i>
                                     {% endfor %}
                                     {% for s in 5|sub:ar2|range %}
+                                        <i class="fa fa-star-o"></i>
+                                    {% endfor %}
+                                    {% else %}
+                                    {% for s in 5|range %}
                                         <i class="fa fa-star-o"></i>
                                     {% endfor %}
                                 {% endif %}
@@ -178,7 +183,7 @@
 
                             <!-- tab3  -->
                             {% block reviews %}
-                                {% include '/home/vladimir/Djangoproject/onlineshop/onlineshop/reviewsapp/templates/reviewsapp/show_reviews.html' %}
+                                {% include '/home/vladimir/Djangoproject/onlineshop/onlineshop/detailsapp/templates/detailsapp/show_reviews.html' %}
                             {% endblock %}
                             <!-- /tab3  -->
                         </div>

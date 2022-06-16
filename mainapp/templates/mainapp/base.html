@@ -29,9 +29,11 @@
 {% endblock %}
 <!-- /CONTENT -->
 
-{% block newsletter %}
-    {% include './blocks/newsletter.html' %}
-{% endblock %}
+{% if request.path != '/contact/' and request.path != '/success/' %}
+    {% block application %}
+        {% include './blocks/application.html' %}
+    {% endblock %}
+{% endif %}
 
 <!-- FOOTER -->
 {% block footer %}

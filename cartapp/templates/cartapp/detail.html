@@ -2,51 +2,93 @@
 {% load static %}
 
 {% block content %}
-    <h1>Your shopping cart</h1>
-    <table class="cart">
-        <thead>
-        <tr>
-            <th>Image</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Remove</th>
-            <th>Unit price</th>
-            <th>Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for item in cart %}
-            {% with product=item.product %}
-                <tr>
-                    <td>
-                        <a href="{{ product.get_absolute_url }}">
-                            <img src="
-                                {% if product.image %}
-                                    {{ product.image.url }}
-                                {% else %}
-                                    {% static "img/no_image.png" %}
-                                {% endif %}">
-                        </a>
-                    </td>
-                    <td>{{ product.name }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td><a href="{% url 'cart:cart_remove' product.url %}">Remove</a></td>
-                    <td class="num">${{ item.price }}</td>
-                    <td class="num">${{ item.total_price }}</td>
-                </tr>
-            {% endwith %}
-        {% endfor %}
-        <tr class="total">
-            <td>Total</td>
-            <td colspan="4"></td>
-            <td class="num">${{ cart.get_total_price }}</td>
-        </tr>
-        </tbody>
-    </table>
-    <p class="text-right">
-        <a href="{% url "filter_prod" %}" class="button light">Continue shopping</a>
-        <a href="{% url "ordersapp:order_create" %}" class="button">
-    Checkout
-</a>
-    </p>
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12 order-details">
+                    <div>
+                        <a href="{% url "filter_prod" %}" class="button light"><i class="fa fa-arrow-circle-left"
+                                                                                  aria-hidden="true"></i> Продолжить
+                            покупки</a>
+                    </div>
+                    <div class="section-title text-center">
+                        <h3 class="title">Ваш Заказ</h3>
+                    </div>
+                    <div class="order-summary">
+                        <div class="order-col">
+                            <div><strong>Товар</strong></div>
+                            <div><strong>Всего</strong></div>
+                        </div>
+                        <div class="order-products">
+                            {% for item in cart %}
+                                {% with product=item.product %}
+                                    <div class="order-col">
+                                        <div>
+                                            <form action="{% url "cart:cart_remove" product.url %}" method="post">
+                                                {{ cart_product_form }}
+                                                {% csrf_token %}
+                                                <button class="delete" type="submit" value="Remove to cart" style="  background: #1e1f29; border: none; color: #FFF;"><i
+                                                        class="fa fa-close"></i></button>
+                                            </form>
+                                        </div>
+                                        <div style="position: relative; right: 65px;"><h4>{{ item.quantity }}x {{ product.brand }} {{ product.name_model }}</h4></div>
+                                        <div><h4>{{ item.total_price }}Р.</h4></div>
+                                    </div>
+                                {% endwith %}
+                            {% endfor %}
+                        </div>
+                        <div class="order-col">
+                            <div><strong>Всего</strong></div>
+                            <div><strong class="order-total">{{ cart.get_total_price }}Р.</strong></div>
+                        </div>
+                    </div>
+                    <div class="payment-method">
+                        <div class="input-radio">
+                            <input type="radio" name="payment" id="payment-1">
+                            <label for="payment-1">
+                                <span></span>
+                                Оплата картой
+                            </label>
+                            <div class="caption">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                        </div>
+                        <div class="input-radio">
+                            <input type="radio" name="payment" id="payment-2">
+                            <label for="payment-2">
+                                <span></span>
+                                Оплата при получении
+                            </label>
+                            <div class="caption">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                        </div>
+                        <div class="input-radio">
+                            <input type="radio" name="payment" id="payment-3">
+                            <label for="payment-3">
+                                <span></span>
+                                Оплата Paypal
+                            </label>
+                            <div class="caption">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-checkbox">
+                        <input type="checkbox" id="terms">
+                        <label for="terms">
+                            <span></span>
+                            Я прочитал(а) все <a href="#">условия & предложения</a>
+                        </label>
+                    </div>
+                    <a href="{% url "ordersapp:order_create" %}" class="primary-btn cta-btn">Оформить заказ</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
