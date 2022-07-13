@@ -1,2 +1,10 @@
-Django~=4.0.4
+Django==4.0.4
+django-el-pagination==3.3.0
+django-debug==0.1.1
+django-filter==21.1
+django-mathfilters==1.0.0
+django-spurl==0.6.8
 Pillow==9.1.1
+psycopg2-binary==2.9.3
+sqlparse==0.4.2
+URLObject==2.4.3

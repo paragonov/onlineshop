@@ -25,3 +25,11 @@ def cart_detail(request):
         'cart': cart,
         'cart_product_form': cart_form
     })
+
+
+def contact(request):
+    return render(request, 'mainapp/plug.html', context={})
+
+
+def about(request):
+    return render(request, 'mainapp/plug.html', context={})

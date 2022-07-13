@@ -15,7 +15,9 @@
                     <ul class="breadcrumb-tree">
                         <li><a href="{% url 'main' %}">Главная</a></li>
                         <li><a href="{% url 'filter_prod' %}">Товары</a></li>
-                        <li><a href="/products/?cat={{ prod.category }}&price-min=1&price-max=999999&show=12">{{ prod.category }}</a></li>
+                        <li>
+                            <a href="/products/?cat={{ prod.category }}&price-min=1&price-max=999999&show=12">{{ prod.category }}</a>
+                        </li>
                         <li class="active">{{ prod.brand }} {{ prod.name_model }}</li>
                     </ul>
                 </div>
@@ -67,7 +69,7 @@
                                     {% for s in 5|sub:ar2|range %}
                                         <i class="fa fa-star-o"></i>
                                     {% endfor %}
-                                    {% else %}
+                                {% else %}
                                     {% for s in 5|range %}
                                         <i class="fa fa-star-o"></i>
                                     {% endfor %}
@@ -113,12 +115,14 @@
 
                         <div class="add-to-cart">
                             <div class="qty-label">
-                                Кол-во
-                                <div class="input-number">
-                                    <input type="number">
-                                    <span class="qty-up">+</span>
-                                    <span class="qty-down">-</span>
-                                </div>
+                                <form action="{% url "cart:cart_add" prod.url %}" method="post">
+                                    Кол-во
+                                    {% for c in cart_product_form %}
+                                        {{ c }}
+                                    {% endfor %}
+                                    {% csrf_token %}
+                                    <button class="add-to-cart-btn" type="submit" value="Add to cart"><i class="fa fa-shopping-cart"></i> Добавить в корзину</button>
+                                </form>
                             </div>
 
                         </div>
@@ -143,11 +147,7 @@
                     </div>
                 </div>
                 <!-- /Product details -->
-                <form action="{% url "cart:cart_add" prod.url %}" method="post">
-                    {{ cart_product_form }}
-                    {% csrf_token %}
-                    <button type="submit" value="Add to cart"> jepa</button>
-                </form>
+
                 <!-- Product tab -->
                 <div class="col-md-12">
                     <div id="product-tab">
