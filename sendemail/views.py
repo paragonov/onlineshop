@@ -8,24 +8,25 @@ from onlineshop.settings import RECIPIENTS_EMAIL, DEFAULT_FROM_EMAIL
 
 
 def contact_view(request):
-    if request.method == 'GET':
+    if request.method == "GET":
         form = ContactForm()
-    elif request.method == 'POST':
+    elif request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            name = form.cleaned_data['name']
-            from_email = form.cleaned_data['from_email']
-            message = form.cleaned_data['message']
+            name = form.cleaned_data["name"]
+            from_email = form.cleaned_data["from_email"]
+            message = form.cleaned_data["message"]
             try:
-                send_mail(f'{name} от {from_email}', message,
-                          from_email, RECIPIENTS_EMAIL)
+                send_mail(
+                    f"{name} от {from_email}", message, from_email, RECIPIENTS_EMAIL
+                )
             except BadHeaderError:
-                return HttpResponse('Ошибка в теме письма.')
-            return redirect('success')
+                return HttpResponse("Ошибка в теме письма.")
+            return redirect("success")
     else:
-        return HttpResponse('Неверный запрос.')
-    return render(request, "sendemail/newsletter.html", {'form': form})
+        return HttpResponse("Неверный запрос.")
+    return render(request, "sendemail/newsletter.html", {"form": form})
 
 
 def success_view(request):
-    return render(request, 'sendemail/success.html')
+    return render(request, "sendemail/success.html")

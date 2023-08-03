@@ -4,14 +4,12 @@ from userapp.models import CustomUser
 
 
 class CustomUserForm(UserCreationForm):
-
     class Meta(UserCreationForm):
         model = CustomUser
-        fields = ('email',)
+        fields = ("email",)
 
 
 class CustomUserChangeForm(UserChangeForm):
-
     class Meta(UserCreationForm):
         model = CustomUser
-        fields = ('email',)
+        fields = ("email",)

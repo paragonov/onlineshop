@@ -2,16 +2,13 @@ version: '3.8'
 
 services:
   web:
-    build: ./onlineshop
+    image: onlineshop
     command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./onlineshop/:/usr/src/onlineshop/
     ports:
       - 8000:8000
-    env_file:
-      - ./.env.dev
     depends_on:
       - db
+
   db:
     image: postgres:13.0-alpine
     volumes:
@@ -20,6 +17,5 @@ services:
       - POSTGRES_USER=user1
       - POSTGRES_PASSWORD=user1
       - POSTGRES_DB=onlineshop_db
-
 volumes:
   postgres_data:

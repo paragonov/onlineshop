@@ -7,29 +7,29 @@ from .models import Categories, Products
 
 
 class MainView(View):
-
     def get(self, request, *args, **kwargs):
-        prod = Products.objects.order_by('?')[:6]
-        categories = Categories.objects.order_by('?')[:3]
+        prod = Products.objects.order_by("?")[:6]
+        categories = Categories.objects.order_by("?")[:3]
         context = {
-            'prods': prod,
-            'cat': categories,
+            "prods": prod,
+            "cat": categories,
         }
-        return render(request, 'mainapp/main.html', context=context)
+        return render(request, "mainapp/main.html", context=context)
 
 
 def cart_detail(request):
     cart = Cart(request)
     cart_form = CartAddProductForm()
-    return render(request, 'mainapp/blocks/header.html', {
-        'cart': cart,
-        'cart_product_form': cart_form
-    })
+    return render(
+        request,
+        "mainapp/blocks/header.html",
+        {"cart": cart, "cart_product_form": cart_form},
+    )
 
 
 def contact(request):
-    return render(request, 'mainapp/plug.html', context={})
+    return render(request, "mainapp/plug.html", context={})
 
 
 def about(request):
-    return render(request, 'mainapp/plug.html', context={})
+    return render(request, "mainapp/plug.html", context={})
